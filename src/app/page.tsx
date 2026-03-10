@@ -17,15 +17,15 @@ function Main() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-zinc-500">Loading poems…</p>
+      <div className="poetry-bg flex min-h-screen items-center justify-center">
+        <p className="font-poetry text-[var(--ink-soft)]">Loading poems…</p>
       </div>
     );
   }
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center p-4">
-        <p className="text-red-500">Error: {error.message}</p>
+      <div className="poetry-bg flex min-h-screen items-center justify-center p-4">
+        <p className="text-red-600 dark:text-red-400">Error: {error.message}</p>
       </div>
     );
   }
@@ -33,20 +33,20 @@ function Main() {
   const poems = data?.poems ?? [];
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="poetry-bg min-h-screen">
+      <header className="border-b border-[var(--paper-border)] bg-[var(--paper)]/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+          <h1 className="font-poetry text-2xl font-semibold text-[var(--ink)] dark:text-[var(--ink)]">
             Poetry
           </h1>
           <div className="flex items-center gap-3">
-            <span className="text-sm text-zinc-500 dark:text-zinc-400">
+            <span className="text-sm text-[var(--ink-soft)]">
               {user.email}
             </span>
             <button
               type="button"
               onClick={() => db.auth.signOut()}
-              className="rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+              className="rounded-lg border border-[var(--paper-border)] bg-[var(--paper)] px-3 py-1.5 text-sm font-medium text-[var(--ink-soft)] hover:bg-[var(--rose-soft)]/20 dark:hover:bg-[var(--rose-soft)]/30"
             >
               Sign out
             </button>
@@ -57,27 +57,27 @@ function Main() {
       <main className="mx-auto max-w-2xl px-4 py-8">
         <PoemForm />
         <section className="mt-10">
-          <h2 className="mb-4 text-lg font-medium text-zinc-800 dark:text-zinc-200">
+          <h2 className="font-poetry mb-4 text-xl font-medium text-[var(--ink)] dark:text-[var(--ink)]">
             All poems
           </h2>
           <ul className="space-y-6">
             {poems.length === 0 ? (
-              <li className="rounded-xl border border-dashed border-zinc-300 bg-white p-6 text-center text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400">
+              <li className="poetry-card rounded-xl p-6 text-center text-[var(--ink-soft)]">
                 No poems yet. Post the first one above.
               </li>
             ) : (
               poems.map((poem) => (
                 <li
                   key={poem.id}
-                  className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+                  className="poetry-card rounded-xl p-6"
                 >
-                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                  <h3 className="font-poetry text-xl font-semibold text-[var(--ink)] dark:text-[var(--ink)]">
                     {poem.title}
                   </h3>
-                  <p className="mt-2 whitespace-pre-wrap text-zinc-600 dark:text-zinc-300">
+                  <p className="mt-3 whitespace-pre-wrap leading-relaxed text-[var(--ink-soft)]">
                     {poem.body}
                   </p>
-                  <p className="mt-3 text-xs text-zinc-400 dark:text-zinc-500">
+                  <p className="mt-4 text-xs text-[var(--rose-muted)] dark:text-[var(--ink-soft)]">
                     by {poem.author?.email ?? 'Anonymous'} ·{' '}
                     {poem.createdAt
                       ? new Date(poem.createdAt).toLocaleDateString()
@@ -125,16 +125,16 @@ function PoemForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+      className="poetry-card rounded-xl p-6"
     >
-      <h2 className="mb-4 text-lg font-medium text-zinc-800 dark:text-zinc-200">
+      <h2 className="font-poetry mb-4 text-xl font-medium text-[var(--ink)] dark:text-[var(--ink)]">
         New poem
       </h2>
       <div className="space-y-4">
         <div>
           <label
             htmlFor="poem-title"
-            className="mb-1 block text-sm font-medium text-zinc-700 dark:text-zinc-300"
+            className="mb-1 block text-sm font-medium text-[var(--ink-soft)]"
           >
             Title
           </label>
@@ -144,14 +144,14 @@ function PoemForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Poem title"
-            className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder-zinc-500"
+            className="w-full rounded-lg border border-[var(--paper-border)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)] placeholder-[var(--ink-soft)]/70 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
             required
           />
         </div>
         <div>
           <label
             htmlFor="poem-body"
-            className="mb-1 block text-sm font-medium text-zinc-700 dark:text-zinc-300"
+            className="mb-1 block text-sm font-medium text-[var(--ink-soft)]"
           >
             Body
           </label>
@@ -161,16 +161,16 @@ function PoemForm() {
             onChange={(e) => setBody(e.target.value)}
             placeholder="Write your poem…"
             rows={5}
-            className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder-zinc-500"
+            className="w-full rounded-lg border border-[var(--paper-border)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)] placeholder-[var(--ink-soft)]/70 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
             required
           />
         </div>
         {submitError && (
-          <p className="text-sm text-red-500">{submitError}</p>
+          <p className="text-sm text-red-600 dark:text-red-400">{submitError}</p>
         )}
         <button
           type="submit"
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)]"
         >
           Post poem
         </button>
@@ -184,7 +184,7 @@ function Login() {
   const [authError, setAuthError] = useState<string | null>(null);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4 dark:bg-zinc-950">
+    <div className="poetry-bg flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm">
         {!sentEmail ? (
           <EmailStep
@@ -201,7 +201,7 @@ function Login() {
           />
         )}
         {authError && (
-          <p className="mt-4 text-center text-sm text-red-500">{authError}</p>
+          <p className="mt-4 text-center text-sm text-red-600 dark:text-red-400">{authError}</p>
         )}
       </div>
     </div>
@@ -234,12 +234,12 @@ function EmailStep({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+      className="poetry-card rounded-xl p-6"
     >
-      <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+      <h2 className="font-poetry text-xl font-semibold text-[var(--ink)] dark:text-[var(--ink)]">
         Log in
       </h2>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-[var(--ink-soft)]">
         Enter your email and we&apos;ll send you a verification code. We&apos;ll
         create an account if you don&apos;t have one.
       </p>
@@ -247,13 +247,13 @@ function EmailStep({
         ref={inputRef}
         type="email"
         placeholder="you@example.com"
-        className="mt-4 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100"
+        className="mt-4 w-full rounded-lg border border-[var(--paper-border)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)] placeholder-[var(--ink-soft)]/70 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         required
         autoFocus
       />
       <button
         type="submit"
-        className="mt-4 w-full rounded-lg bg-zinc-900 py-2 font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+        className="mt-4 w-full rounded-lg bg-[var(--accent)] py-2 font-medium text-white hover:bg-[var(--accent-hover)]"
       >
         Send code
       </button>
@@ -288,19 +288,19 @@ function CodeStep({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+      className="poetry-card rounded-xl p-6"
     >
-      <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+      <h2 className="font-poetry text-xl font-semibold text-[var(--ink)] dark:text-[var(--ink)]">
         Enter your code
       </h2>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-        We sent an email to <strong>{sentEmail}</strong>. Paste the code here.
+      <p className="mt-2 text-[var(--ink-soft)]">
+        We sent an email to <strong className="text-[var(--ink)]">{sentEmail}</strong>. Paste the code here.
       </p>
       <input
         ref={inputRef}
         type="text"
         placeholder="123456"
-        className="mt-4 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100"
+        className="mt-4 w-full rounded-lg border border-[var(--paper-border)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)] placeholder-[var(--ink-soft)]/70 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         required
         autoFocus
       />
@@ -308,13 +308,13 @@ function CodeStep({
         <button
           type="button"
           onClick={onBack}
-          className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+          className="rounded-lg border border-[var(--paper-border)] bg-[var(--paper)] px-4 py-2 text-sm font-medium text-[var(--ink-soft)] hover:bg-[var(--rose-soft)]/20 dark:hover:bg-[var(--rose-soft)]/30"
         >
           Back
         </button>
         <button
           type="submit"
-          className="flex-1 rounded-lg bg-zinc-900 py-2 font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="flex-1 rounded-lg bg-[var(--accent)] py-2 font-medium text-white hover:bg-[var(--accent-hover)]"
         >
           Verify
         </button>

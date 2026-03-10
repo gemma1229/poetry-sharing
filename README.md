@@ -46,9 +46,9 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Deploy to Vercel
 
 1. Connect this repository to Vercel (e.g. [vercel.com/new](https://vercel.com/new)).
-2. In the project **Settings → Environment Variables**, add:
+2. **Required:** In the project **Settings → Environment Variables**, add:
    - **Name:** `NEXT_PUBLIC_INSTANT_APP_ID`
-   - **Value:** your InstantDB App ID (same as in `.env.local`).
-3. Deploy. Vercel will detect Next.js and use the default build.
+   - **Value:** your InstantDB App ID (same as in `.env.local`, from [instantdb.com/dash](https://instantdb.com/dash)).
+3. Deploy (or redeploy after adding the variable).
 
-No extra config is required; the app is ready for Vercel’s Next.js deployment.
+**If the site is blank or shows an error on Vercel:** ensure `NEXT_PUBLIC_INSTANT_APP_ID` is set for the correct environment (Production/Preview/Development) and trigger a new deployment after saving the variable.
