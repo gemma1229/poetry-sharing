@@ -1,0 +1,28 @@
+import { i } from '@instantdb/react';
+
+const _schema = i.schema({
+  entities: {
+    $users: i.entity({
+      email: i.string().unique().indexed().optional(),
+    }),
+    poems: i.entity({
+      title: i.string(),
+      body: i.string(),
+      createdAt: i.number().indexed(),
+    }),
+  },
+  links: {
+    poemAuthor: {
+      forward: { on: 'poems', has: 'one', label: 'author' },
+      reverse: { on: '$users', has: 'many', label: 'poems' },
+    },
+  },
+  rooms: {},
+});
+
+type _AppSchema = typeof _schema;
+interface AppSchema extends _AppSchema {}
+const schema: AppSchema = _schema;
+
+export type { AppSchema };
+export default schema;
